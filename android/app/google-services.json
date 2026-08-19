@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "928441221487",
+    "project_id": "project-crm-f5add",
+    "storage_bucket": "project-crm-f5add.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:928441221487:android:a8631ff969d66311c3289a",
+        "android_client_info": {
+          "package_name": "ethicfin.assessment.task.manager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "928441221487-mp9mokcp2hibvq16f4agrucmkv2fccsj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiOwVTEAdTNo7Hy_qW20d3FSRbP7MflaE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "928441221487-mp9mokcp2hibvq16f4agrucmkv2fccsj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
