@@ -39,6 +39,7 @@ class SyncService extends StateNotifier<SyncState> {
   final TaskRepository _taskRepository;
   final NetworkInfo _networkInfo;
   StreamSubscription? _connectivitySubscription;
+  Timer? _retryTimer;
   bool _isFirstLoad = true;
 
   SyncService({
@@ -55,10 +56,11 @@ class SyncService extends StateNotifier<SyncState> {
       final isOffline = results.contains(ConnectivityResult.none);
       
       if (isOffline) {
+        _cancelRetryTimer();
         state = state.copyWith(status: SyncStateStatus.offline);
       } else {
         // If we transition from offline to online, or on first startup when online, trigger sync
-        if (state.status == SyncStateStatus.offline || _isFirstLoad) {
+        if (state.status == SyncStateStatus.offline || state.status == SyncStateStatus.failed || _isFirstLoad) {
           _isFirstLoad = false;
           await sync();
         } else {
@@ -78,6 +80,8 @@ class SyncService extends StateNotifier<SyncState> {
   }
 
   Future<void> sync() async {
+    _cancelRetryTimer();
+
     if (state.status == SyncStateStatus.offline) {
       // Re-verify actual connection
       final connected = await _networkInfo.isConnected;
@@ -97,12 +101,30 @@ class SyncService extends StateNotifier<SyncState> {
         status: SyncStateStatus.failed,
         errorMessage: e.toString(),
       );
+      // Automatically retry syncing after 10 seconds if online
+      _scheduleRetry();
     }
+  }
+
+  void _scheduleRetry() {
+    _cancelRetryTimer();
+    _retryTimer = Timer(const Duration(seconds: 10), () async {
+      final connected = await _networkInfo.isConnected;
+      if (connected) {
+        await sync();
+      }
+    });
+  }
+
+  void _cancelRetryTimer() {
+    _retryTimer?.cancel();
+    _retryTimer = null;
   }
 
   @override
   void dispose() {
     _connectivitySubscription?.cancel();
+    _cancelRetryTimer();
     super.dispose();
   }
 }
