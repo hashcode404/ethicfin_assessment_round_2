@@ -1,0 +1,28 @@
+name: CodeQL
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "23 6 * * 1"
+
+permissions:
+  actions: read
+  contents: read
+  security-events: write
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout repository
+        uses: hashcode404/reusable_gh_actions/.github/actions/checkout@main
+
+
+      - name: Analyze native Android code
+        uses: hashcode404/reusable_gh_actions/.github/actions/codeql@main
+        with:
+          languages: java-kotlin
+          build-mode: autobuild
