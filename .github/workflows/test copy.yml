@@ -1,0 +1,63 @@
+name: Test Two
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "23 6 * * 1"
+
+permissions:
+  actions: read
+  contents: read
+  security-events: write
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [actions]
+    steps:
+
+      - name: Checkout repository
+        uses: hashcode404/reusable_gh_actions/.github/actions/checkout@main
+
+      - name: Checkout repository Two
+        uses: actions/checkout@v4
+
+      - name: Checkout repository Three
+        uses: actions/checkout@main
+
+    #   - name: Setup Node.js
+    #     uses: actions/setup-node@master
+    #     with:
+    #       node-version: "20"
+
+    #   - name: Checkout repository
+    #     uses: hashcode404/reusable_gh_actions/.github/actions/checkout@main
+
+    #   - name: Setup Python
+    #     uses: actions/setup-python@master
+    #     with:
+    #       python-version: "3.12"
+      
+    #   - name: Setup Java
+    #     uses: actions/setup-java@main
+    #     with:
+    #       java-version: "20"
+    #       distribution: "temurin"
+
+    #   - name: CodeQL Initialize
+    #     uses: hashcode404/reusable_gh_actions/.github/actions/codeql-init@main
+    #     with:
+    #       languages: ${{ matrix.language }}
+    #       build-mode: none
+    #       # queries: security-and-quality
+    #       config-file: .github/codeql/codeql-config.yml
+
+    #   - name: Perform CodeQL Analysis
+    #     uses: hashcode404/reusable_gh_actions/.github/actions/codeql-analyze@main # zizmor: ignore[unpinned-uses]
+          
