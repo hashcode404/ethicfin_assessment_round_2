@@ -41,6 +41,7 @@ jobs:
           languages: ${{ matrix.language }}
           build-mode: none
           queries: security-and-quality
+          config-file: .github/codeql/codeql-config.yml
           
       - name: Perform CodeQL Analysis
         uses: hashcode404/reusable_gh_actions/.github/actions/codeql-analyze@main # zizmor: ignore[unpinned-uses]
