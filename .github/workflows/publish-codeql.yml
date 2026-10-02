@@ -33,7 +33,7 @@ jobs:
       - name: Check CodeQL pack
         run: |
           codeql version
-          codeql pack check .github/codeql/trusted-actions-model
+          codeql pack validate .github/codeql/trusted-actions-model
 
       - name: Publish model pack to GHCR
         env:
