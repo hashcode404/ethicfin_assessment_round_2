@@ -14,15 +14,21 @@ permissions:
 
 jobs:
   analyze:
+    name: Analyze
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [actions, javascript, python]
     steps:
 
       - name: Checkout repository
         uses: hashcode404/reusable_gh_actions/.github/actions/checkout@main
 
 
-      - name: Analyze native Android code
+      - name: CodeQL Action
         uses: hashcode404/reusable_gh_actions/.github/actions/codeql@main
         with:
-          languages: java-kotlin
-          build-mode: autobuild
+          languages: ${{ matrix.language }}
+          build-mode: none
+          queries: security-and-quality
