@@ -1,0 +1,42 @@
+name: Publish CodeQL model pack
+
+on:
+  push:
+    branches: [main, codeql]
+    paths:
+      - ".github/codeql/trusted-actions-model/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install CodeQL CLI
+        run: |
+          curl -L \
+            https://github.com/github/codeql-action/releases/download/codeql-bundle-v2.27.1/codeql-bundle-linux64.tar.gz \
+            -o "$RUNNER_TEMP/codeql-bundle.tar.gz"
+
+          tar -xzf "$RUNNER_TEMP/codeql-bundle.tar.gz" \
+            -C "$RUNNER_TEMP"
+
+          echo "$RUNNER_TEMP/codeql" >> "$GITHUB_PATH"
+
+      - name: Check CodeQL pack
+        run: |
+          codeql version
+        #   codeql pack validate .github/codeql/trusted-actions-model
+
+      - name: Publish model pack to GHCR
+        env:
+          CODEQL_REGISTRIES_AUTH: "https://ghcr.io/v2/=${{ secrets.GITHUB_TOKEN }}"
+        run: |
+          codeql pack publish .github/codeql/trusted-actions-model
