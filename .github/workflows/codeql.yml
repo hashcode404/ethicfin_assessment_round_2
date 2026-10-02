@@ -29,6 +29,11 @@ jobs:
         uses: actions/setup-node@master
         with:
           node-version: "20"
+          
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
 
       - name: CodeQL Action
         uses: hashcode404/reusable_gh_actions/.github/actions/codeql@main # zizmor: ignore[unpinned-uses]
