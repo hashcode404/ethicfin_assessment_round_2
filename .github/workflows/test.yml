@@ -25,6 +25,9 @@ jobs:
       - name: Checkout repository
         uses: hashcode404/reusable_gh_actions/.github/actions/checkout@main
 
+      - name: Checkout repository
+        uses: hashcode404/reusable_gh_actions/.github/actions/checkout@main
+
     #   - name: Setup Node.js
     #     uses: actions/setup-node@master
     #     with:
