@@ -14,6 +14,7 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -23,10 +24,14 @@ jobs:
           curl -L \
             https://github.com/github/codeql-cli-binaries/releases/latest/download/codeql-bundle-linux64.tar.gz \
             -o "$RUNNER_TEMP/codeql-bundle.tar.gz"
-          tar -xzf "$RUNNER_TEMP/codeql-bundle.tar.gz" -C "$RUNNER_TEMP"
+
+          tar -xzf "$RUNNER_TEMP/codeql-bundle.tar.gz" \
+            -C "$RUNNER_TEMP"
+
           echo "$RUNNER_TEMP/codeql" >> "$GITHUB_PATH"
 
       - name: Publish model pack to GHCR
         env:
-          CODEQL_REGISTRIES_AUTH: '{"ghcr.io":{"token":"${{ secrets.GITHUB_TOKEN }}"}}'
-        run: codeql pack publish .github/codeql/trusted-actions-model
+          CODEQL_REGISTRIES_AUTH: "https://ghcr.io/v2/=${{ secrets.GITHUB_TOKEN }}"
+        run: |
+          codeql pack publish .github/codeql/trusted-actions-model
