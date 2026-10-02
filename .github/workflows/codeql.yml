@@ -25,11 +25,10 @@ jobs:
       - name: Checkout repository
         uses: hashcode404/reusable_gh_actions/.github/actions/checkout@main
 
-      - name: Checkout repository
-        uses: hashcode404/reusable_gh_actions/.github/actions/checkout@main
-
-      - name: Checkout repository
-        uses: hashcode404/reusable_gh_actions/.github/actions/checkout@main
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
 
       - name: CodeQL Action
         uses: hashcode404/reusable_gh_actions/.github/actions/codeql@main
