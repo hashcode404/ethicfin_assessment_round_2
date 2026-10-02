@@ -29,7 +29,7 @@ jobs:
         uses: actions/setup-node@master
         with:
           node-version: "20"
-          
+
       - name: Checkout repository
         uses: hashcode404/reusable_gh_actions/.github/actions/checkout@main
 
@@ -42,6 +42,7 @@ jobs:
         uses: actions/setup-java@main
         with:
           java-version: "20"
+          distribution: "temurin"
 
       - name: CodeQL Initialize
         uses: hashcode404/reusable_gh_actions/.github/actions/codeql-init@main
