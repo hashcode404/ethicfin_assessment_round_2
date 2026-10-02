@@ -3,8 +3,8 @@ name: Publish CodeQL model pack
 on:
   push:
     branches: [main, codeql]
-    # paths:
-    #   - ".github/codeql/trusted-actions-model/**"
+    paths:
+      - ".github/codeql/trusted-actions-model/**"
   workflow_dispatch:
 
 permissions:
