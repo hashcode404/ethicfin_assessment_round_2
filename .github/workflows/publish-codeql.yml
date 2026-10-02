@@ -1,0 +1,29 @@
+name: Publish CodeQL model pack
+
+on:
+  push:
+    branches: [main, codeql]
+    paths:
+      - ".github/codeql/trusted-actions-model/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up CodeQL CLI
+        uses: github/codeql-action/init@v3
+        with:
+          languages: actions
+
+      - name: Publish model pack to GHCR
+        env:
+          CODEQL_REGISTRIES_AUTH: '{"ghcr.io":{"token":"${{ secrets.GITHUB_TOKEN }}"}}'
+        run: codeql pack publish .github/codeql/trusted-actions-model
