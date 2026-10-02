@@ -24,6 +24,9 @@ jobs:
 
       - name: Checkout repository
         uses: hashcode404/reusable_gh_actions/.github/actions/checkout@main
+        
+      - name: Checkout repository
+        uses: hashcode404/reusable_gh_actions/.github/actions/checkout@main
 
 
       - name: CodeQL Action
@@ -32,3 +35,4 @@ jobs:
           languages: ${{ matrix.language }}
           build-mode: none
           queries: security-and-quality
+          
