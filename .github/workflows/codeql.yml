@@ -24,10 +24,12 @@ jobs:
 
       - name: Checkout repository
         uses: hashcode404/reusable_gh_actions/.github/actions/checkout@main
-        
+
       - name: Checkout repository
         uses: hashcode404/reusable_gh_actions/.github/actions/checkout@main
 
+      - name: Checkout repository
+        uses: hashcode404/reusable_gh_actions/.github/actions/checkout@main
 
       - name: CodeQL Action
         uses: hashcode404/reusable_gh_actions/.github/actions/codeql@main
