@@ -1,0 +1,6 @@
+name: hashcode404/trusted-actions-model
+version: 0.0.1
+extensionTargets:
+  codeql/actions-all: "*"
+dataExtensions:
+  - trusted-actions.yml

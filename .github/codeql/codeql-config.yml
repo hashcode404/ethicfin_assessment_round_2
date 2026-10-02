@@ -1,9 +1,7 @@
-name: Custom CodeQL configuration
+name: CodeQL configuration
 
 queries:
   - uses: security-and-quality
-  - uses: ./.github/codeql/custom-actions-queries
 
-query-filters:
-  - exclude:
-      id: actions/unpinned-tag
+model-packs:
+  - ./.github/codeql/trusted-actions-model
